@@ -1,0 +1,1126 @@
+
+<!doctype html>
+<html lang="bn" class="h-full bg-slate-900">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>MixMart Central Hub | Buy, Sell & Trade</title>
+<!-- Tailwind CSS & FontAwesome -->
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          brand: {
+            50: '#ecfdf5',
+            100: '#d1fae5',
+            500: '#10b981',
+            600: '#059669',
+            700: '#047857',
+            800: '#065f46',
+            900: '#064e3b',
+            950: '#022c22'
+          }
+        }
+      }
+    }
+  }
+</script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap');
+  body {
+    font-family: 'Hind Siliguri', system-ui, -apple-system, sans-serif;
+  }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  .glow-box { box-shadow: 0 0 20px rgba(16, 185, 129, 0.25); }
+</style>
+</head>
+<body class="text-slate-100 flex flex-col min-h-full selection:bg-brand-500 selection:text-white">
+
+  <!-- TOP ANNOUNCEMENT & SOCIAL SUPPORT BAR -->
+  <div class="bg-gradient-to-r from-emerald-950 via-slate-900 to-emerald-950 text-xs py-2 px-4 border-b border-emerald-900/40">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-3">
+        <span class="bg-brand-500/20 text-brand-400 font-bold px-2 py-0.5 rounded text-[10px] tracking-wider uppercase border border-brand-500/30">Official Hub</span>
+        <span class="hidden md:inline text-slate-300">কাস্টমার সাপোর্ট ও প্রিমিয়াম ট্রাফিকের সাথে কেনাবেচা করুন</span>
+      </div>
+      <!-- Social Media Support Links -->
+      <div class="flex items-center gap-3 font-medium">
+        <span class="text-slate-400 text-[11px] hidden sm:inline">সাপোর্ট চ্যানেল:</span>
+        <a id="linkFacebook" href="https://facebook.com" target="_blank" class="hover:text-blue-400 transition flex items-center gap-1"><i class="fa-brands fa-facebook"></i> <span class="hidden sm:inline">Facebook</span></a>
+        <a id="linkYouTube" href="https://youtube.com" target="_blank" class="hover:text-red-500 transition flex items-center gap-1"><i class="fa-brands fa-youtube"></i> <span class="hidden sm:inline">YouTube</span></a>
+        <a id="linkTelegram" href="https://t.me" target="_blank" class="hover:text-sky-400 transition flex items-center gap-1"><i class="fa-brands fa-telegram"></i> <span class="hidden sm:inline">Telegram</span></a>
+        <a id="linkWhatsApp" href="https://wa.me/8801700000000" target="_blank" class="hover:text-emerald-400 transition flex items-center gap-1 text-emerald-400"><i class="fa-brands fa-whatsapp"></i> <span>Helpline</span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN NAVIGATION HEADER -->
+  <header class="bg-slate-900/95 backdrop-blur-md border-b border-slate-800 sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 py-3">
+      <div class="flex items-center justify-between gap-3">
+        <!-- Logo -->
+        <div class="flex items-center gap-3 cursor-pointer" onclick="switchNavTab('home')">
+          <div class="relative w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-emerald-400 p-0.5 glow-box flex items-center justify-center">
+            <div class="bg-slate-900 w-full h-full rounded-[10px] flex items-center justify-center">
+              <i class="fa-solid fa-bolt-lightning text-brand-400 text-xl"></i>
+            </div>
+          </div>
+          <div>
+            <h1 class="font-extrabold text-xl md:text-2xl bg-gradient-to-r from-white via-slate-100 to-brand-400 bg-clip-text text-transparent leading-none">MixMart Hub</h1>
+            <span class="text-[10px] tracking-widest text-emerald-500 font-bold uppercase block mt-0.5">Central Trading Hub</span>
+          </div>
+        </div>
+
+        <!-- Search Input Bar -->
+        <div class="flex-1 max-w-lg hidden sm:flex items-center relative">
+          <input id="searchInput" type="text" placeholder="পণ্য, আইডি, পেইজ বা সার্ভিস খুঁজুন..." class="w-full bg-slate-800/80 border border-slate-700/80 rounded-xl pl-10 pr-24 py-2 text-sm focus:outline-none focus:border-brand-500 text-slate-100 placeholder-slate-400 transition">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 text-slate-400 text-xs"></i>
+          <button onclick="loadListings()" class="absolute right-1.5 bg-brand-600 hover:bg-brand-500 text-white font-bold px-3 py-1 rounded-lg text-xs transition">খুঁজুন</button>
+        </div>
+
+        <!-- Right Quick Tools -->
+        <div class="flex items-center gap-2">
+          <button onclick="openBoostModal()" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950 font-extrabold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 shadow-lg shadow-orange-500/20 transition">
+            <i class="fa-solid fa-rocket animate-bounce"></i> <span>বুস্টিং</span>
+          </button>
+
+          <button onclick="openInbox()" class="relative p-2 text-slate-300 hover:text-brand-400 bg-slate-800/60 rounded-xl border border-slate-700/50 transition">
+            <i class="fa-solid fa-comments text-lg"></i>
+            <span id="unreadBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center hidden">3</span>
+          </button>
+
+          <button onclick="toggleProfileModal()" class="p-2 text-slate-300 hover:text-brand-400 bg-slate-800/60 rounded-xl border border-slate-700/50 transition flex items-center gap-2">
+            <i class="fa-solid fa-user text-lg"></i>
+            <span id="headerUserName" class="hidden lg:inline text-xs font-semibold">প্রোফাইল</span>
+          </button>
+
+          <button onclick="openPostModal()" class="bg-brand-600 hover:bg-brand-500 text-white font-bold px-3.5 py-2 rounded-xl text-xs flex items-center gap-1.5 shadow-lg shadow-brand-600/30 transition">
+            <i class="fa-solid fa-plus-circle text-sm"></i>
+            <span class="hidden sm:inline">পোস্ট করুন</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Categories Bar -->
+      <div class="flex items-center gap-2 overflow-x-auto py-2.5 mt-2 border-t border-slate-800/80 no-scrollbar text-xs">
+        <button class="cat-btn bg-brand-600 text-white font-bold px-4 py-1.5 rounded-xl whitespace-nowrap transition shadow-sm" data-cat="সব">সবকিছু</button>
+        <button class="cat-btn bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium px-4 py-1.5 rounded-xl whitespace-nowrap border border-slate-700/60 transition" data-cat="সোশ্যাল মিডিয়া অ্যাকাউন্ট"><i class="fa-solid fa-share-nodes text-brand-400 mr-1.5"></i> সোশ্যাল মিডিয়া আইডি & পেইজ</button>
+        <button class="cat-btn bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium px-4 py-1.5 rounded-xl whitespace-nowrap border border-slate-700/60 transition" data-cat="মোবাইল"><i class="fa-solid fa-mobile-screen text-sky-400 mr-1.5"></i> মোবাইল</button>
+        <button class="cat-btn bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium px-4 py-1.5 rounded-xl whitespace-nowrap border border-slate-700/60 transition" data-cat="ইলেকট্রনিকস"><i class="fa-solid fa-laptop text-amber-400 mr-1.5"></i> ইলেকট্রনিকস</button>
+        <button class="cat-btn bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium px-4 py-1.5 rounded-xl whitespace-nowrap border border-slate-700/60 transition" data-cat="যানবাহন"><i class="fa-solid fa-car text-purple-400 mr-1.5"></i> যানবাহন</button>
+        <button class="cat-btn bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium px-4 py-1.5 rounded-xl whitespace-nowrap border border-slate-700/60 transition" data-cat="অন্যান্য"><i class="fa-solid fa-box-open text-rose-400 mr-1.5"></i> অন্যান্য</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN BODY CONTAINER -->
+  <main class="max-w-7xl mx-auto px-4 py-6 flex-1 w-full space-y-6">
+
+    <!-- HERO & BANNER ROW -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <!-- Main Hero -->
+      <div class="lg:col-span-2 bg-gradient-to-br from-slate-800 via-emerald-950/40 to-slate-900 p-6 md:p-8 rounded-3xl border border-emerald-500/20 shadow-2xl relative overflow-hidden flex flex-col justify-between">
+        <div class="relative z-10">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="bg-brand-500/20 text-brand-400 text-xs font-bold px-3 py-1 rounded-full border border-brand-500/30 flex items-center gap-1.5">
+              <i class="fa-solid fa-shield-halved"></i> 100% ভেরিফাইড ও নিরাপদ প্ল্যাটফর্ম
+            </span>
+          </div>
+          <h2 class="text-2xl md:text-4xl font-extrabold text-white mb-2 leading-tight">
+            ফেসবুক, টিকটক, গেম আইডি ও যেকোনো পণ্য <span class="text-brand-400 underline decoration-brand-500/50">নিরাপদে কিনুন-বেচুন!</span>
+          </h2>
+          <p class="text-slate-300 text-xs md:text-sm mb-6 max-w-xl">
+            MixMart Central Hub-এ প্রতিটি বিক্রেতা ভেরিফাইড। স্কেমারদের রিপোর্ট করার সুবিধা, প্রোফাইল ব্লু ভেরিফিকেশন টিক এবং রিয়েল-টাইম অডিও/ভিডিও চ্যাট সুবিধা রয়েছে।
+          </p>
+        </div>
+
+        <div class="relative z-10 flex flex-wrap gap-3">
+          <button onclick="openPostModal()" class="bg-brand-600 hover:bg-brand-500 text-white font-extrabold px-6 py-3 rounded-2xl text-xs md:text-sm shadow-xl shadow-brand-600/30 transition flex items-center gap-2">
+            <i class="fa-solid fa-plus"></i> বিজ্ঞাপন দিন (১০টি ছবিসহ)
+          </button>
+          <button onclick="openReferralModal()" class="bg-slate-800 hover:bg-slate-700 text-brand-400 font-bold px-5 py-3 rounded-2xl text-xs md:text-sm border border-slate-700 transition flex items-center gap-2">
+            <i class="fa-solid fa-gift"></i> রেফার করে আয় করুন
+          </button>
+        </div>
+      </div>
+
+      <!-- Creator & Admin Showcase Card -->
+      <div class="bg-slate-800/80 border border-slate-700/70 p-5 rounded-3xl flex flex-col justify-between shadow-xl relative overflow-hidden">
+        <div>
+          <div class="flex items-center justify-between mb-4 border-b border-slate-700/60 pb-3">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-crown text-amber-400 text-base"></i>
+              <span class="text-xs font-bold text-slate-200">প্ল্যাটফর্ম ক্রিয়েটর ও ওনার</span>
+            </div>
+            <span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-extrabold px-2 py-0.5 rounded">Founder</span>
+          </div>
+
+          <div class="flex items-center gap-3 mb-3">
+            <div class="relative">
+              <img id="creatorPhoto" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" class="w-14 h-14 rounded-2xl object-cover border-2 border-brand-500 shadow-md">
+              <i class="fa-solid fa-circle-check text-sky-400 absolute -bottom-1 -right-1 bg-slate-900 rounded-full text-xs"></i>
+            </div>
+            <div>
+              <h4 id="creatorName" class="font-extrabold text-sm text-slate-100">মোঃ মাজহারুল ইসলাম (Creator)</h4>
+              <p class="text-[11px] text-slate-400">MixMart Central Hub Founder</p>
+              <span class="inline-block bg-brand-900/60 text-brand-300 text-[10px] font-semibold px-2 py-0.5 rounded mt-1">কাস্টমার হেল্প ডেস্কে সক্রিয়</span>
+            </div>
+          </div>
+          <p class="text-xs text-slate-300 italic bg-slate-900/50 p-3 rounded-xl border border-slate-700/40">
+            "আমাদের লক্ষ্য বাংলাদেশের তরুণদের নিরাপদ ডিজিটাল অ্যাসেট কেনাবেচার সুবিধা দেওয়া।"
+          </p>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-slate-700/60 flex items-center justify-between text-xs">
+          <span class="text-slate-400">সরাসরি যোগাযোগ:</span>
+          <a href="https://wa.me/8801700000000" target="_blank" class="text-brand-400 font-bold hover:underline flex items-center gap-1">
+            <i class="fa-brands fa-whatsapp"></i> হোয়াটসঅ্যাপে মেসেজ
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOTIFICATION & STATUS MESSAGES -->
+    <div id="noticeBar" class="p-3 rounded-2xl bg-slate-800/90 border border-slate-700 text-xs text-slate-300 flex items-center justify-between">
+      <span><i class="fa-solid fa-circle-info text-brand-400 mr-2"></i> সিস্টেম স্বাভাবিক রয়েছে। যে কোনো সমস্যা হলে হেল্পলাইনে যোগাযোগ করুন।</span>
+      <button onclick="document.getElementById('noticeBar').remove()" class="text-slate-500 hover:text-slate-300">✕</button>
+    </div>
+
+    <!-- MAIN PRODUCT LISTINGS -->
+    <section>
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+        <div>
+          <h3 id="listTitle" class="text-xl font-extrabold text-white flex items-center gap-2">
+            <span>সাম্প্রতিক অফারসমূহ</span>
+            <span class="text-xs font-normal text-slate-400 bg-slate-800 px-2.5 py-1 rounded-full border border-slate-700">লাইভ লিস্ট</span>
+          </h3>
+          <p class="text-xs text-slate-400">বুস্টেড ও সাম্প্রতিক বিজ্ঞাপন যাচাই করে কেনাবেচা করুন</p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="openMyAds()" class="text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl border border-slate-700 transition">
+            <i class="fa-solid fa-box text-brand-400 mr-1"></i> আমার বিজ্ঞাপন
+          </button>
+          <button onclick="openScammerReportsModal()" class="text-xs font-bold bg-rose-950/60 hover:bg-rose-900 text-rose-300 px-3.5 py-2 rounded-xl border border-rose-800/60 transition">
+            <i class="fa-solid fa-triangle-exclamation mr-1"></i> রিপোর্টেড স্কেমার্স
+          </button>
+        </div>
+      </div>
+
+      <!-- Listings Grid -->
+      <div id="listingsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ADS BOOSTING MODAL (MONETIZATION & INCOME SYSTEM) -->
+  <div id="boostModal" class="fixed inset-0 bg-slate-950/80 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
+    <div class="bg-slate-900 border border-amber-500/30 rounded-3xl max-w-lg w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeBoostModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl w-8 h-8 rounded-full flex items-center justify-center bg-slate-800">✕</button>
+
+      <div class="flex items-center gap-2 mb-2 text-amber-400">
+        <i class="fa-solid fa-rocket text-xl"></i>
+        <h3 class="font-extrabold text-lg text-white">পোস্ট বুস্টিং ও প্রমোট করুন</h3>
+      </div>
+      <p class="text-xs text-slate-400 mb-6">আপনার পণ্য প্রথম সারিতে নিয়ে আসুন এবং দ্রুত বিক্রি করুন।</p>
+
+      <!-- Boost Packages -->
+      <div class="space-y-3 mb-6">
+        <label class="block cursor-pointer">
+          <input type="radio" name="boostPkg" value="100" checked class="peer hidden">
+          <div class="p-4 rounded-2xl bg-slate-800 border border-slate-700 peer-checked:border-amber-500 peer-checked:bg-amber-950/20 transition flex justify-between items-center">
+            <div>
+              <h5 class="font-bold text-sm text-white">৩ দিন বুস্ট (সুপার ফাস্ট সেল)</h5>
+              <p class="text-xs text-slate-400">ওয়েবসাইটের শীর্ষে ও ক্যাটাগরির প্রথমে থাকবে</p>
+            </div>
+            <span class="text-base font-extrabold text-amber-400">৳ ১০০</span>
+          </div>
+        </label>
+
+        <label class="block cursor-pointer">
+          <input type="radio" name="boostPkg" value="250" class="peer hidden">
+          <div class="p-4 rounded-2xl bg-slate-800 border border-slate-700 peer-checked:border-amber-500 peer-checked:bg-amber-950/20 transition flex justify-between items-center">
+            <div>
+              <h5 class="font-bold text-sm text-white">৭ দিন প্রিমিয়াম ভিআইপি বুস্ট</h5>
+              <p class="text-xs text-slate-400">টপ পজিশন + সোশ্যাল মিডিয়া গ্রুপে ফ্রী শেয়ার</p>
+            </div>
+            <span class="text-base font-extrabold text-amber-400">৳ ২৫০</span>
+          </div>
+        </label>
+      </div>
+
+      <!-- Payment Gateways -->
+      <h4 class="font-bold text-xs text-slate-300 mb-2">পেমেন্ট মেথড বেছে নিন:</h4>
+      <div class="grid grid-cols-3 gap-2 mb-4">
+        <button type="button" onclick="selectPaymentMethod('bKash')" id="payBkash" class="pay-method-btn bg-pink-950/40 border border-pink-700/50 p-2.5 rounded-xl text-center hover:bg-pink-900/50 transition">
+          <span class="text-xs font-bold text-pink-400 block">bKash</span>
+          <span class="text-[9px] text-slate-400">বিকাশ পারসোনাল</span>
+        </button>
+        <button type="button" onclick="selectPaymentMethod('Nagad')" id="payNagad" class="pay-method-btn bg-orange-950/40 border border-orange-700/50 p-2.5 rounded-xl text-center hover:bg-orange-900/50 transition">
+          <span class="text-xs font-bold text-orange-400 block">Nagad</span>
+          <span class="text-[9px] text-slate-400">নগদ পারসোনাল</span>
+        </button>
+        <button type="button" onclick="selectPaymentMethod('Rocket')" id="payRocket" class="pay-method-btn bg-purple-950/40 border border-purple-700/50 p-2.5 rounded-xl text-center hover:bg-purple-900/50 transition">
+          <span class="text-xs font-bold text-purple-400 block">Rocket</span>
+          <span class="text-[9px] text-slate-400">রকেট নম্বর</span>
+        </button>
+      </div>
+
+      <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 text-xs text-slate-300 space-y-2 mb-4">
+        <div class="flex justify-between items-center">
+          <span id="gatewayNumLabel">বিকাশ পারসোনাল নম্বর:</span>
+          <span class="font-mono font-bold text-amber-400">01540236663</span>
+        </div>
+        <p class="text-[11px] text-slate-400">টাকা পাঠানোর পর TrxID বা লেনদেন আইডেন্টিটি লিখে নিচে দিন:</p>
+      </div>
+
+      <form onsubmit="submitBoostPayment(event)" class="space-y-3">
+        <input type="text" id="trxIdInput" required placeholder="TrxID (যেমন: 9J38KSL02)" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400">
+        <button type="submit" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-extrabold py-3 rounded-xl text-xs transition shadow-lg">
+          বুস্ট রিকোয়েস্ট পাঠান
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MULTI-PHOTO (UP TO 10 PHOTOS) LISTING MODAL -->
+  <div id="postModal" class="fixed inset-0 bg-slate-950/80 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closePostModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl w-8 h-8 rounded-full flex items-center justify-center bg-slate-800">✕</button>
+
+      <h3 class="text-xl font-extrabold text-white mb-1">বিজ্ঞাপন প্রকাশ করুন</h3>
+      <p class="text-xs text-slate-400 mb-5">সর্বোচ্চ ১০টি ছবি আপলোড করে বিস্তারিত লিখুন</p>
+
+      <form id="postForm" onsubmit="handlePostListing(event)" class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">পণ্যের নাম / আইডি নাম *</label>
+            <input id="postTitle" type="text" required placeholder="যেমন: 50k Facebook Page / iPhone 14" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:border-brand-500 outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">মূল্য (টাকা) *</label>
+            <input id="postPrice" type="number" required placeholder="5000" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:border-brand-500 outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">ক্যাটাগরি *</label>
+            <select id="postCategory" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:border-brand-500 outline-none">
+              <option value="সোশ্যাল মিডিয়া অ্যাকাউন্ট">সোশ্যাল মিডিয়া আইডি/পেইজ (FB, TikTok, Gmail, YT)</option>
+              <option value="মোবাইল">মোবাইল</option>
+              <option value="ইলেকট্রনিকস">ইলেকট্রনিকস</option>
+              <option value="যানবাহন">যানবাহন</option>
+              <option value="অন্যান্য">অন্যান্য</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">অবস্থান / এলাকা *</label>
+            <input id="postLocation" type="text" required placeholder="যেমন: ঢাকা / অনলাইন ডেলিভারি" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:border-brand-500 outline-none">
+          </div>
+        </div>
+
+        <!-- Multi-photo Selector (Up to 10) -->
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="text-xs font-bold text-slate-300">পণ্যের ছবিসমূহ (সর্বোচ্চ ১০টি ছবি আপলোড করুন) *</label>
+            <span id="photoCountLabel" class="text-[10px] text-brand-400 font-bold">০/১০ ছবি যুক্ত</span>
+          </div>
+          <input type="file" id="multiImageInput" accept="image/*" multiple onchange="handleMultiplePhotos(event)" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-400 file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:bg-brand-600 file:text-white file:text-xs">
+          
+          <!-- Image Previews Container -->
+          <div id="imagePreviewContainer" class="flex items-center gap-2 overflow-x-auto py-3 mt-2 no-scrollbar">
+            <div class="text-xs text-slate-500 italic">কোনো ছবি সিলেক্ট করা হয়নি</div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">বিস্তারিত বিবরণ *</label>
+          <textarea id="postDescription" rows="3" required placeholder="পণ্যের কন্ডিশন, অ্যাকাউন্টের ফলোয়ার সংখ্যা বা সার্ভিস বিবরণ সংক্ষেপে লিখুন..." class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:border-brand-500 outline-none"></textarea>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">ফোন নাম্বার (ঐচ্ছিক)</label>
+            <input id="postPhone" type="tel" placeholder="01700000000" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">হোয়াটসঅ্যাপ (ঐচ্ছিক)</label>
+            <input id="postWhatsapp" type="tel" placeholder="8801700000000" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white outline-none">
+          </div>
+        </div>
+
+        <button type="submit" id="postSubmitBtn" class="w-full bg-brand-600 hover:bg-brand-500 text-white font-extrabold py-3 rounded-xl text-xs transition shadow-lg">
+          বিজ্ঞাপন সাবমিট করুন
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- PRODUCT DETAIL MODAL (WITH CAROUSEL & SCAMMER REPORTING) -->
+  <div id="detailModal" class="fixed inset-0 bg-slate-950/80 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeDetailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl w-8 h-8 rounded-full flex items-center justify-center bg-slate-800">✕</button>
+      <div id="detailContent"></div>
+    </div>
+  </div>
+
+  <!-- SCAMMER REPORT MODAL -->
+  <div id="scamReportModal" class="fixed inset-0 bg-slate-950/80 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
+    <div class="bg-slate-900 border border-rose-900/50 rounded-3xl max-w-md w-full p-6 shadow-2xl relative">
+      <button onclick="closeScamReportModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl w-8 h-8 rounded-full flex items-center justify-center bg-slate-800">✕</button>
+
+      <div class="flex items-center gap-2 mb-2 text-rose-500">
+        <i class="fa-solid fa-triangle-exclamation text-xl"></i>
+        <h3 class="font-extrabold text-lg text-white">স্কেমার রিপোর্ট জমা দিন</h3>
+      </div>
+      <p class="text-xs text-slate-400 mb-4">ভুয়া তথ্য বা প্রতারণার বিরুদ্ধে প্রমাণসহ এডমিনকে জানান।</p>
+
+      <form onsubmit="submitScamReport(event)" class="space-y-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">অভিযোগের ধরন *</label>
+          <select id="reportReason" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
+            <option value="টাকা নিয়ে পণ্য দেয়নি">টাকা নিয়ে অ্যাডমিন বা ক্রেতাকে ব্লক করা হয়েছে</option>
+            <option value="ভুয়া একাউন্ট বা পেইজ">ভুয়া অ্যাকাউন্টের স্ক্যাম লিংক প্রদান</option>
+            <option value="ছবি বা তথ্য নকল">অন্যের ছবি চুরি ও মিথ্যা বিজ্ঞাপন</option>
+            <option value="অন্যান্য প্রতারণা">অন্যান্য প্রতারণা</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">বিস্তারিত বিবরণ *</label>
+          <textarea id="reportDetails" rows="3" required placeholder="প্রতারণার বিবরণ বা লেনদেনের প্রমাণ দিন..." class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white outline-none"></textarea>
+        </div>
+
+        <button type="submit" class="w-full bg-rose-600 hover:bg-rose-500 text-white font-extrabold py-2.5 rounded-xl text-xs transition shadow-lg">
+          এডমিনের কাছে রিপোর্ট জমা দিন
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- RICH MESSAGING & AUDIO/VIDEO CALL CHAT SYSTEM -->
+  <div id="inboxModal" class="fixed inset-0 bg-slate-950/80 z-50 flex items-center justify-center p-2 md:p-4 hidden backdrop-blur-sm">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-4xl w-full shadow-2xl overflow-hidden flex flex-col h-[85vh]">
+      <!-- Header -->
+      <div class="bg-slate-800 px-5 py-3 flex items-center justify-between border-b border-slate-700">
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-comments text-brand-400 text-xl"></i>
+          <div>
+            <h3 class="font-extrabold text-sm text-white">মেসেঞ্জার ডিরেক্ট হাবে কথা বলুন</h3>
+            <p class="text-[10px] text-brand-400">অডিও/ভিডিও ও ভয়েস নোট সাপোর্ট</p>
+          </div>
+        </div>
+        <button onclick="closeInboxModal()" class="text-slate-400 hover:text-white text-xl">✕</button>
+      </div>
+
+      <!-- Chat Layout -->
+      <div class="flex-1 flex overflow-hidden">
+        <!-- Thread List -->
+        <div id="threadsList" class="w-full md:w-1/3 border-r border-slate-800 bg-slate-950/50 overflow-y-auto divide-y divide-slate-800/60">
+          <!-- Dynamically populated -->
+        </div>
+
+        <!-- Chat Area -->
+        <div id="chatArea" class="hidden md:flex flex-1 flex-col bg-slate-900">
+          <!-- Chat Action Header -->
+          <div class="p-3 bg-slate-800/50 border-b border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <img id="chatUserAvatar" src="https://via.placeholder.com/40" class="w-9 h-9 rounded-full object-cover border border-brand-500">
+              <div>
+                <h5 id="chatUserName" class="font-bold text-xs text-white">ব্যবহারকারী</h5>
+                <span id="chatUserStatus" class="text-[10px] text-emerald-400 flex items-center gap-1"><i class="fa-solid fa-circle text-[6px]"></i> অনলাইন</span>
+              </div>
+            </div>
+
+            <!-- Call Actions -->
+            <div class="flex items-center gap-2">
+              <button onclick="triggerCallSimulator('audio')" class="p-2 text-brand-400 hover:bg-slate-800 rounded-xl transition" title="অডিও কল"><i class="fa-solid fa-phone text-sm"></i></button>
+              <button onclick="triggerCallSimulator('video')" class="p-2 text-sky-400 hover:bg-slate-800 rounded-xl transition" title="ভিডিও কল"><i class="fa-solid fa-video text-sm"></i></button>
+            </div>
+          </div>
+
+          <!-- Message History Container -->
+          <div id="chatMessageHistory" class="flex-1 p-4 overflow-y-auto space-y-3">
+            <!-- Messages inserted here -->
+          </div>
+
+          <!-- Input Controls -->
+          <form onsubmit="sendChatMessage(event)" class="p-3 bg-slate-800/60 border-t border-slate-800 flex items-center gap-2">
+            <!-- Photo/Video Attachment Button -->
+            <label class="cursor-pointer p-2 text-slate-400 hover:text-brand-400">
+              <i class="fa-solid fa-paperclip"></i>
+              <input type="file" id="chatMediaInput" accept="image/*,video/*" class="hidden" onchange="attachChatMedia(event)">
+            </label>
+
+            <!-- Voice Note Simulator Button -->
+            <button type="button" onclick="recordVoiceNoteSim()" id="voiceRecordBtn" class="p-2 text-slate-400 hover:text-rose-400 transition" title="ভয়েস নোট পাঠান">
+              <i class="fa-solid fa-microphone"></i>
+            </button>
+
+            <input id="chatTextInput" type="text" placeholder="মেসেজ লিখুন..." class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-brand-500">
+            <button type="submit" class="bg-brand-600 hover:bg-brand-500 text-white font-bold px-4 py-2 rounded-xl text-xs transition">
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUDIO / VIDEO CALL SIMULATOR MODAL -->
+  <div id="callModal" class="fixed inset-0 bg-slate-950/90 z-50 flex items-center justify-center p-4 hidden backdrop-blur-md">
+    <div class="bg-slate-900 border border-brand-500/40 rounded-3xl max-w-sm w-full p-6 text-center space-y-5 shadow-2xl relative">
+      <div class="relative w-24 h-24 mx-auto">
+        <img id="callUserImg" src="https://via.placeholder.com/100" class="w-full h-full rounded-full object-cover border-4 border-brand-500 animate-pulse">
+        <div id="callTypeBadge" class="absolute bottom-0 right-0 bg-brand-600 text-white p-2 rounded-full text-xs">
+          <i class="fa-solid fa-phone"></i>
+        </div>
+      </div>
+
+      <div>
+        <h4 id="callUserName" class="font-extrabold text-base text-white">ব্যবহারকারী</h4>
+        <p id="callStatusText" class="text-xs text-brand-400 font-semibold mt-1">কল কানেক্ট হচ্ছে...</p>
+      </div>
+
+      <div class="flex items-center justify-center gap-4 pt-2">
+        <button onclick="endCallSimulator()" class="w-14 h-14 bg-rose-600 hover:bg-rose-700 text-white rounded-full flex items-center justify-center text-xl shadow-lg transition">
+          <i class="fa-solid fa-phone-slash"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- USER PROFILE & BLUE TICK VERIFICATION MODAL -->
+  <div id="profileModal" class="fixed inset-0 bg-slate-950/80 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <button onclick="toggleProfileModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl w-8 h-8 rounded-full flex items-center justify-center bg-slate-800">✕</button>
+
+      <h3 class="text-lg font-extrabold text-white mb-4 flex items-center gap-2">
+        <span>আমার প্রোফাইল</span>
+        <span id="blueTickBadge" class="hidden bg-sky-500/20 text-sky-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-sky-500/30">
+          <i class="fa-solid fa-circle-check"></i> ব্লু ভেরিফাইড
+        </span>
+      </h3>
+
+      <form onsubmit="saveUserProfile(event)" class="space-y-4">
+        <div class="flex items-center gap-4 bg-slate-800/60 p-3 rounded-2xl border border-slate-700/60">
+          <div class="relative">
+            <img id="userAvatarPrev" src="https://via.placeholder.com/100?text=User" class="w-16 h-16 rounded-2xl object-cover border-2 border-brand-500">
+            <label for="avatarFileInput" class="absolute -bottom-1 -right-1 bg-brand-600 text-white p-1.5 rounded-full text-[10px] cursor-pointer shadow">
+              <i class="fa-solid fa-camera"></i>
+            </label>
+            <input type="file" id="avatarFileInput" accept="image/*" class="hidden" onchange="previewUserAvatar(event)">
+          </div>
+          <div>
+            <span id="userEmailDisp" class="text-xs font-mono text-slate-400 block">user@mixmart.com</span>
+            <button type="button" onclick="applyBlueTickRequest()" class="mt-1 text-[11px] text-sky-400 hover:underline font-bold flex items-center gap-1">
+              <i class="fa-solid fa-shield-halved"></i> ব্লু ভেরিফিকেশন টিক পান
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">পূর্ণ নাম *</label>
+          <input id="profileName" type="text" required placeholder="আপনার নাম" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 text-xs text-white outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">মোবাইল নাম্বার *</label>
+          <input id="profilePhone" type="tel" required placeholder="01700000000" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 text-xs text-white outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">ঠিকানা / এলাকা *</label>
+          <textarea id="profileAddress" rows="2" required placeholder="আপনার স্থায়ী ঠিকানা" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 text-xs text-white outline-none"></textarea>
+        </div>
+
+        <button type="submit" class="w-full bg-brand-600 hover:bg-brand-500 text-white font-extrabold py-2.5 rounded-xl text-xs transition shadow-lg">
+          প্রোফাইল সেভ করুন
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- REFERRAL & EARN MODAL -->
+  <div id="referralModal" class="fixed inset-0 bg-slate-950/80 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
+    <div class="bg-slate-900 border border-emerald-500/30 rounded-3xl max-w-md w-full p-6 shadow-2xl relative text-center">
+      <button onclick="closeReferralModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl w-8 h-8 rounded-full flex items-center justify-center bg-slate-800">✕</button>
+
+      <div class="w-16 h-16 bg-emerald-500/20 text-brand-400 rounded-3xl flex items-center justify-center text-3xl mx-auto mb-3 border border-brand-500/30">
+        <i class="fa-solid fa-gift"></i>
+      </div>
+
+      <h3 class="font-extrabold text-lg text-white mb-1">বন্ধুদের রেফার করে বোনাস পান!</h3>
+      <p class="text-xs text-slate-400 mb-5">প্রতিটি সফল রেফারে পাবেন ফ্রী পোস্ট বুস্টিং পয়েন্ট ও ক্যাশব্যাক।</p>
+
+      <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 mb-4">
+        <span class="text-[10px] text-slate-500 block uppercase font-bold tracking-wider mb-1">আপনার ইউনিক রেফার কোড</span>
+        <div class="flex items-center justify-center gap-2">
+          <span id="refCodeText" class="font-mono text-xl font-extrabold text-brand-400">MIX-9842</span>
+          <button onclick="copyRefCode()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 p-2 rounded-xl text-xs transition">
+            <i class="fa-solid fa-copy"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="text-xs text-slate-400 bg-slate-800/50 p-3 rounded-xl border border-slate-700/40 text-left space-y-1 mb-4">
+        <p>✓ আপনার কোড ব্যবহার করে অ্যাকাউন্ট খুললে ৩টি পোস্ট ফ্রী পাবেন।</p>
+        <p>✓ ১০টি রেফারে পাবেন সম্পূর্ণ ১টি ফ্রি ৭-দিনের ভিআইপি বুস্ট।</p>
+      </div>
+
+      <button onclick="shareReferralLink()" class="w-full bg-brand-600 hover:bg-brand-500 text-white font-extrabold py-3 rounded-xl text-xs transition shadow-lg flex items-center justify-center gap-2">
+        <i class="fa-solid fa-share-nodes"></i> লিঙ্ক শেয়ার করুন
+      </button>
+    </div>
+  </div>
+
+  <!-- REPORTED SCAMMERS LIST MODAL -->
+  <div id="scammersListModal" class="fixed inset-0 bg-slate-950/80 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
+    <div class="bg-slate-900 border border-rose-900/50 rounded-3xl max-w-xl w-full p-6 shadow-2xl relative max-h-[85vh] overflow-y-auto">
+      <button onclick="closeScammerReportsModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl w-8 h-8 rounded-full flex items-center justify-center bg-slate-800">✕</button>
+
+      <h3 class="text-lg font-extrabold text-white mb-1 flex items-center gap-2 text-rose-400">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span>রিপোর্টকৃত স্কেমার তালিকা</span>
+      </h3>
+      <p class="text-xs text-slate-400 mb-4">নিচে উল্লেখিত অ্যাকাউন্ট বা নামসমূহে লেনদেনের পূর্বে সতর্ক থাকুন</p>
+
+      <div id="scammersContainer" class="space-y-3">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- MY ADS LIST MODAL -->
+  <div id="myAdsModal" class="fixed inset-0 bg-slate-950/80 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-3xl w-full p-6 shadow-2xl relative max-h-[85vh] overflow-y-auto">
+      <button onclick="closeMyAdsModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl w-8 h-8 rounded-full flex items-center justify-center bg-slate-800">✕</button>
+
+      <h3 class="text-lg font-extrabold text-white mb-4">আমার বিজ্ঞাপন তালিকা</h3>
+      <div id="myAdsContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-950 border-t border-slate-800 mt-12 py-8 text-xs text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 text-center space-y-3">
+      <div class="flex items-center justify-center gap-2">
+        <div class="w-6 h-6 rounded-lg bg-brand-600 flex items-center justify-center text-white text-xs font-bold">M</div>
+        <span class="font-extrabold text-sm text-white">MixMart Central Hub</span>
+      </div>
+      <p>© <span id="year"></span> MixMart Hub. সর্বস্বত্ব সংরক্ষিত। প্ল্যাটফর্মে কোনো প্রকার অসৎ লেনদেন করা নিষিদ্ধ।</p>
+    </div>
+  </footer>
+
+  <script>
+    // DUMMY STATE MANAGEMENT & DATA STORAGE
+    let currentCategory = 'সব';
+    let userProfile = {
+      name: 'মো: শরিফুল ইসলাম',
+      email: 'user@mixmart.com',
+      phone: '01711223344',
+      address: 'মিরপুর, ঢাকা',
+      avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80',
+      isVerified: true
+    };
+
+    let uploadedPhotos = [];
+
+    let mockListings = [
+      {
+        id: 'ad-101',
+        title: '50k Active Facebook Page for Sale (Monetized)',
+        price: 12500,
+        category: 'সোশ্যাল মিডিয়া অ্যাকাউন্ট',
+        location: 'অনলাইন ডেলিভারি',
+        images: [
+          'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=600&q=80',
+          'https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?auto=format&fit=crop&w=600&q=80'
+        ],
+        description: '৫০ হাজার রিয়েল ফলোয়ারের ফেসবুক পেইজ। ইনস্ট্রিম এডস অন করা আছে। যেকোনো ধরনের বিজনেসের জন্য উপযোগী।',
+        sellerName: 'সাকিব হোসেন',
+        sellerAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
+        sellerVerified: true,
+        isBoosted: true
+      },
+      {
+        id: 'ad-102',
+        title: '100k TikTok Account (Gaming Niche)',
+        price: 8500,
+        category: 'সোশ্যাল মিডিয়া অ্যাকাউন্ট',
+        location: 'ঢাকা',
+        images: [
+          'https://images.unsplash.com/photo-1598128558393-70ff21433be0?auto=format&fit=crop&w=600&q=80'
+        ],
+        description: '১ লক্ষ ফলোয়ারের ফ্রি ফায়ার এবং পাবজি গেমের ভিডিও আপলোড করা টিকটক অ্যাকাউন্ট। লাইভ সুবিধা সচল।',
+        sellerName: 'রাকিব আহমেদ',
+        sellerAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80',
+        sellerVerified: false,
+        isBoosted: false
+      },
+      {
+        id: 'ad-103',
+        title: 'iPhone 13 Pro Max - 128GB Official',
+        price: 72000,
+        category: 'মোবাইল',
+        location: 'ধানমন্ডি, ঢাকা',
+        images: [
+          'https://images.unsplash.com/photo-1632661674596-df8be070a5c5?auto=format&fit=crop&w=600&q=80'
+        ],
+        description: 'সম্পূর্ণ ফ্রেশ কন্ডিশন। ব্যাটারি হেলথ ৮৭%। সাথে অরিজিনাল ক্যাবল ও বক্স দেয়া হবে।',
+        sellerName: 'মাহমুদুল হাসান',
+        sellerAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80',
+        sellerVerified: true,
+        isBoosted: true
+      }
+    ];
+
+    let scamReports = [
+      {
+        id: 'scam-1',
+        name: 'আরিফ আহমেদ (Fake Seller)',
+        reason: 'টাকা নিয়ে পেইজের পাসওয়ার্ড দেয়নি',
+        details: 'বিকাশে ৫০০০ টাকা নেওয়ার পর আমাকে মেসেঞ্জারে ব্লক করে দিয়েছে।'
+      }
+    ];
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // DOM LOAD INIT
+    window.addEventListener('DOMContentLoaded', () => {
+      loadListings();
+      setupCategories();
+      updateProfileUI();
+    });
+
+    // CATEGORY SELECTION
+    function setupCategories() {
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        btn.onclick = () => {
+          document.querySelectorAll('.cat-btn').forEach(b => {
+            b.className = "cat-btn bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium px-4 py-1.5 rounded-xl whitespace-nowrap border border-slate-700/60 transition";
+          });
+          btn.className = "cat-btn bg-brand-600 text-white font-bold px-4 py-1.5 rounded-xl whitespace-nowrap transition shadow-sm";
+          currentCategory = btn.dataset.cat;
+          loadListings();
+        };
+      });
+    }
+
+    // LOAD LISTINGS IN GRID
+    function loadListings() {
+      const grid = document.getElementById('listingsGrid');
+      const searchVal = document.getElementById('searchInput').value.toLowerCase().trim();
+
+      let filtered = mockListings.filter(item => {
+        const catMatch = currentCategory === 'সব' || item.category === currentCategory;
+        const searchMatch = !searchVal || item.title.toLowerCase().includes(searchVal);
+        return catMatch && searchMatch;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="col-span-full py-12 text-center text-slate-500 bg-slate-800/40 rounded-3xl border border-slate-800">কোনো বিজ্ঞাপন পাওয়া যায়নি।</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(item => `
+        <div class="bg-slate-800/90 rounded-2xl border border-slate-700/80 overflow-hidden shadow-lg hover:border-brand-500/50 transition flex flex-col justify-between group">
+          <div class="relative h-44 bg-slate-900 overflow-hidden">
+            <img src="${item.images[0]}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+            ${item.isBoosted ? `<span class="absolute top-2 left-2 bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-extrabold text-[10px] px-2 py-0.5 rounded-md shadow"><i class="fa-solid fa-rocket mr-1"></i> বুস্টেড</span>` : ''}
+            <span class="absolute top-2 right-2 bg-slate-900/80 text-brand-400 font-bold text-[10px] px-2 py-0.5 rounded-md backdrop-blur-sm border border-slate-700">${item.category}</span>
+          </div>
+
+          <div class="p-3.5 flex-1 flex flex-col justify-between">
+            <div>
+              <h4 class="font-bold text-sm text-slate-100 line-clamp-1 group-hover:text-brand-400 transition">${escapeHTML(item.title)}</h4>
+              <p class="text-xs text-slate-400 mt-1 flex items-center gap-1"><i class="fa-solid fa-location-dot text-brand-500 text-[10px]"></i> ${escapeHTML(item.location)}</p>
+            </div>
+
+            <div class="mt-3 pt-2.5 border-t border-slate-700/60 flex items-center justify-between">
+              <div>
+                <span class="text-[10px] text-slate-400 block">মূল্য</span>
+                <span class="text-base font-extrabold text-brand-400">৳ ${item.price.toLocaleString('bn-BD')}</span>
+              </div>
+              <button onclick="openDetailModal('${item.id}')" class="bg-brand-600 hover:bg-brand-500 text-white font-bold px-3 py-1.5 rounded-xl text-xs transition">
+                বিস্তারিত
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // MULTIPLE PHOTOS HANDLER (UP TO 10 PHOTOS)
+    function handleMultiplePhotos(e) {
+      const files = Array.from(e.target.files);
+      if (files.length > 10) {
+        alert('আপনি সর্বোচ্চ ১০টি ছবি যোগ করতে পারবেন!');
+        return;
+      }
+
+      uploadedPhotos = [];
+      const container = document.getElementById('imagePreviewContainer');
+      container.innerHTML = '';
+
+      files.forEach((file, index) => {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          uploadedPhotos.push(evt.target.result);
+          const img = document.createElement('img');
+          img.src = evt.target.result;
+          img.className = "w-14 h-14 object-cover rounded-xl border border-brand-500 flex-shrink-0";
+          container.appendChild(img);
+          document.getElementById('photoCountLabel').textContent = `${uploadedPhotos.length}/১০ ছবি যুক্ত`;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // SUBMIT NEW AD
+    function handlePostListing(e) {
+      e.preventDefault();
+      const title = document.getElementById('postTitle').value;
+      const price = Number(document.getElementById('postPrice').value);
+      const category = document.getElementById('postCategory').value;
+      const location = document.getElementById('postLocation').value;
+      const description = document.getElementById('postDescription').value;
+
+      const newAd = {
+        id: 'ad-' + Date.now(),
+        title,
+        price,
+        category,
+        location,
+        images: uploadedPhotos.length ? uploadedPhotos : ['https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&w=600&q=80'],
+        description,
+        sellerName: userProfile.name,
+        sellerAvatar: userProfile.avatar,
+        sellerVerified: userProfile.isVerified,
+        isBoosted: false
+      };
+
+      mockListings.unshift(newAd);
+      alert('বিজ্ঞাপনটি সফলভাবে পোস্ট করা হয়েছে!');
+      closePostModal();
+      loadListings();
+    }
+
+    // DETAIL MODAL WITH MULTI-PHOTO CAROUSEL & SCAMMERS REPORT
+    function openDetailModal(id) {
+      const item = mockListings.find(x => x.id === id);
+      if (!item) return;
+
+      const content = document.getElementById('detailContent');
+      content.innerHTML = `
+        <div class="space-y-4">
+          <!-- Main Carousel View -->
+          <div class="relative bg-slate-950 rounded-2xl overflow-hidden h-64 md:h-80 flex items-center justify-center">
+            <img id="carouselMainImg" src="${item.images[0]}" class="max-h-full max-w-full object-contain">
+          </div>
+
+          <!-- Thumbnails Row -->
+          ${item.images.length > 1 ? `
+            <div class="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar">
+              ${item.images.map((img, idx) => `
+                <img src="${img}" onclick="document.getElementById('carouselMainImg').src='${img}'" class="w-14 h-14 rounded-xl object-cover border border-slate-700 cursor-pointer hover:border-brand-500">
+              `).join('')}
+            </div>
+          ` : ''}
+
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="bg-brand-500/20 text-brand-400 text-xs font-bold px-2.5 py-1 rounded-full border border-brand-500/30">${item.category}</span>
+              <h3 class="text-xl font-extrabold text-white mt-2">${escapeHTML(item.title)}</h3>
+              <p class="text-xs text-slate-400 mt-1"><i class="fa-solid fa-location-dot text-brand-500 mr-1"></i> ${escapeHTML(item.location)}</p>
+            </div>
+            <div class="text-right">
+              <span class="text-2xl font-extrabold text-brand-400">৳ ${item.price.toLocaleString('bn-BD')}</span>
+            </div>
+          </div>
+
+          <!-- Seller Info -->
+          <div class="bg-slate-800 p-3.5 rounded-2xl border border-slate-700 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <img src="${item.sellerAvatar}" class="w-10 h-10 rounded-full object-cover border border-brand-500">
+              <div>
+                <h5 class="font-bold text-xs text-white flex items-center gap-1">
+                  ${escapeHTML(item.sellerName)}
+                  ${item.sellerVerified ? `<i class="fa-solid fa-circle-check text-sky-400 text-xs" title="ভেরিফাইড সেলার"></i>` : ''}
+                </h5>
+                <span class="text-[10px] text-slate-400">অনলাইন সেলার</span>
+              </div>
+            </div>
+            <button onclick="openScamReportModal('${item.sellerName}')" class="text-xs text-rose-400 hover:underline font-bold flex items-center gap-1">
+              <i class="fa-solid fa-triangle-exclamation"></i> রিপোর্ট করুন
+            </button>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-xs text-slate-300 mb-1">বিবরণ:</h4>
+            <p class="text-xs text-slate-300 bg-slate-800/60 p-3 rounded-xl border border-slate-700/50">${escapeHTML(item.description)}</p>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex gap-2 pt-2">
+            <button onclick="startChat('${item.sellerName}')" class="flex-1 bg-brand-600 hover:bg-brand-500 text-white font-extrabold py-3 rounded-xl text-xs transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-comments"></i> চ্যাট মেসেজ ও কল করুন
+            </button>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('detailModal').classList.remove('hidden');
+    }
+
+    function closeDetailModal() { document.getElementById('detailModal').classList.add('hidden'); }
+    function openPostModal() { document.getElementById('postModal').classList.remove('hidden'); }
+    function closePostModal() { document.getElementById('postModal').classList.add('hidden'); }
+    function openBoostModal() { document.getElementById('boostModal').classList.remove('hidden'); }
+    function closeBoostModal() { document.getElementById('boostModal').classList.add('hidden'); }
+
+    // BOOSTING & PAYMENT SIMULATION
+    function selectPaymentMethod(name) {
+      document.querySelectorAll('.pay-method-btn').forEach(b => b.classList.remove('ring-2', 'ring-amber-400'));
+      document.getElementById('gatewayNumLabel').textContent = `${name} পারসোনাল নম্বর:`;
+    }
+
+    function submitBoostPayment(e) {
+      e.preventDefault();
+      alert('আপনার পেমেন্ট ট্রানজেকশন রিকোয়েস্ট সফলভাবে জমা হয়েছে! এডমিন খুব শীঘ্রই যাচাই করে পোস্ট বুস্ট করে দিবে।');
+      closeBoostModal();
+    }
+
+    // SCAMMER REPORTING
+    let currentReportUser = '';
+    function openScamReportModal(userName) {
+      currentReportUser = userName;
+      document.getElementById('scamReportModal').classList.remove('hidden');
+    }
+    function closeScamReportModal() { document.getElementById('scamReportModal').classList.add('hidden'); }
+
+    function submitScamReport(e) {
+      e.preventDefault();
+      const reason = document.getElementById('reportReason').value;
+      const details = document.getElementById('reportDetails').value;
+
+      scamReports.unshift({
+        id: 'scam-' + Date.now(),
+        name: currentReportUser || 'Unknown',
+        reason,
+        details
+      });
+
+      alert('রিপোর্ট এডমিনের কাছে পাঠানো হয়েছে। অভিযোগ সত্য হলে উক্ত আইডি ব্ল্যাকলিস্ট করা হবে।');
+      closeScamReportModal();
+    }
+
+    function openScammerReportsModal() {
+      const modal = document.getElementById('scammersListModal');
+      const container = document.getElementById('scammersContainer');
+      modal.classList.remove('hidden');
+
+      container.innerHTML = scamReports.map(s => `
+        <div class="p-3.5 bg-slate-800 rounded-2xl border border-rose-900/40 space-y-1">
+          <div class="flex justify-between items-center">
+            <h5 class="font-bold text-xs text-rose-400">${escapeHTML(s.name)}</h5>
+            <span class="text-[10px] bg-rose-950 text-rose-300 px-2 py-0.5 rounded">রিপোর্টেড</span>
+          </div>
+          <p class="text-xs text-slate-300 font-medium">কারণ: ${escapeHTML(s.reason)}</p>
+          <p class="text-[11px] text-slate-400">বিবরণ: ${escapeHTML(s.details)}</p>
+        </div>
+      `).join('');
+    }
+    function closeScammerReportsModal() { document.getElementById('scammersListModal').classList.add('hidden'); }
+
+    // CHAT & MEDIA / AUDIO CALL SIMULATION
+    function openInbox() {
+      document.getElementById('inboxModal').classList.remove('hidden');
+      loadChatThreads();
+    }
+    function closeInboxModal() { document.getElementById('inboxModal').classList.add('hidden'); }
+
+    function loadChatThreads() {
+      const list = document.getElementById('threadsList');
+      list.innerHTML = `
+        <div onclick="selectChatUser('সাকিব হোসেন (Founder)')" class="p-3.5 hover:bg-slate-800 cursor-pointer transition flex items-center gap-3 border-b border-slate-800">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" class="w-10 h-10 rounded-full object-cover border border-brand-500">
+          <div class="flex-1 min-w-0">
+            <h5 class="font-bold text-xs text-white">সাকিব হোসেন <i class="fa-solid fa-circle-check text-sky-400 text-[10px]"></i></h5>
+            <p class="text-[11px] text-slate-400 truncate">আজই আপনার অ্যাকাউন্ট ভেরিফাই করুন</p>
+          </div>
+        </div>
+      `;
+      selectChatUser('সাকিব হোসেন (Founder)');
+    }
+
+    function selectChatUser(name) {
+      document.getElementById('chatUserName').textContent = name;
+      const history = document.getElementById('chatMessageHistory');
+      history.innerHTML = `
+        <div class="flex flex-col gap-2">
+          <div class="bg-slate-800 text-xs text-slate-200 p-3 rounded-2xl max-w-[80%] self-start border border-slate-700">
+            হ্যালো! MixMart Central Hub-এ আপনাকে স্বাগতম। কীভাবে সাহায্য করতে পারি?
+          </div>
+        </div>
+      `;
+    }
+
+    function sendChatMessage(e) {
+      e.preventDefault();
+      const input = document.getElementById('chatTextInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const history = document.getElementById('chatMessageHistory');
+      history.innerHTML += `
+        <div class="bg-brand-600 text-xs text-white p-3 rounded-2xl max-w-[80%] self-end shadow-md">
+          ${escapeHTML(text)}
+        </div>
+      `;
+      input.value = '';
+      history.scrollTop = history.scrollHeight;
+    }
+
+    function attachChatMedia(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const history = document.getElementById('chatMessageHistory');
+        history.innerHTML += `
+          <div class="bg-brand-600 text-xs text-white p-2 rounded-2xl max-w-[80%] self-end">
+            <img src="${evt.target.result}" class="rounded-xl max-h-48 object-cover">
+          </div>
+        `;
+        history.scrollTop = history.scrollHeight;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function recordVoiceNoteSim() {
+      const history = document.getElementById('chatMessageHistory');
+      history.innerHTML += `
+        <div class="bg-brand-600 text-xs text-white p-3 rounded-2xl max-w-[80%] self-end flex items-center gap-2">
+          <i class="fa-solid fa-circle-play text-lg"></i>
+          <span>ভয়েস নোট (0:12)</span>
+        </div>
+      `;
+      history.scrollTop = history.scrollHeight;
+    }
+
+    function startChat(sellerName) {
+      closeDetailModal();
+      openInbox();
+      selectChatUser(sellerName);
+    }
+
+    function triggerCallSimulator(type) {
+      document.getElementById('callStatusText').textContent = type === 'audio' ? 'অডিও কল হচ্ছে...' : 'ভিডিও কল যুক্ত হচ্ছে...';
+      document.getElementById('callModal').classList.remove('hidden');
+    }
+    function endCallSimulator() { document.getElementById('callModal').classList.add('hidden'); }
+
+    // USER PROFILE & BLUE TICK VERIFICATION
+    function toggleProfileModal() { document.getElementById('profileModal').classList.toggle('hidden'); }
+
+    function updateProfileUI() {
+      document.getElementById('profileName').value = userProfile.name;
+      document.getElementById('profilePhone').value = userProfile.phone;
+      document.getElementById('profileAddress').value = userProfile.address;
+      document.getElementById('userAvatarPrev').src = userProfile.avatar;
+      document.getElementById('headerUserName').textContent = userProfile.name;
+    }
+
+    function previewUserAvatar(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = evt => {
+          userProfile.avatar = evt.target.result;
+          document.getElementById('userAvatarPrev').src = evt.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function saveUserProfile(e) {
+      e.preventDefault();
+      userProfile.name = document.getElementById('profileName').value;
+      userProfile.phone = document.getElementById('profilePhone').value;
+      userProfile.address = document.getElementById('profileAddress').value;
+      alert('প্রোফাইল আপডেট হয়েছে!');
+      toggleProfileModal();
+      updateProfileUI();
+    }
+
+    function applyBlueTickRequest() {
+      alert('ব্লু ভেরিফিকেশন আবেদন জমা নেওয়া হয়েছে! এডমিন প্যানেল আপনার জাতীয় পরিচয়পত্র/তথ্য চেক করে ব্লু টিক প্রদান করবে।');
+    }
+
+    // REFERRAL SYSTEM
+    function openReferralModal() { document.getElementById('referralModal').classList.remove('hidden'); }
+    function closeReferralModal() { document.getElementById('referralModal').classList.add('hidden'); }
+    function copyRefCode() {
+      navigator.clipboard.writeText('MIX-9842');
+      alert('রেফার কোড কপি করা হয়েছে!');
+    }
+    function shareReferralLink() {
+      alert('রেফার লিঙ্ক সোশ্যাল মিডিয়ায় শেয়ার করতে প্রস্তুত!');
+    }
+
+    // MY ADS MODAL
+    function openMyAds() {
+      const modal = document.getElementById('myAdsModal');
+      const container = document.getElementById('myAdsContainer');
+      modal.classList.remove('hidden');
+
+      const myAds = mockListings.filter(x => x.sellerName === userProfile.name);
+      if (myAds.length === 0) {
+        container.innerHTML = `<div class="col-span-full text-center text-slate-500 py-6 text-xs">আপনার কোনো বিজ্ঞাপন নেই।</div>`;
+        return;
+      }
+
+      container.innerHTML = myAds.map(item => `
+        <div class="bg-slate-800 p-3 rounded-2xl border border-slate-700 flex flex-col justify-between space-y-2">
+          <img src="${item.images[0]}" class="h-28 w-full object-cover rounded-xl">
+          <h5 class="font-bold text-xs text-white truncate">${escapeHTML(item.title)}</h5>
+          <span class="text-xs font-extrabold text-brand-400">৳ ${item.price}</span>
+          <button onclick="deleteAd('${item.id}')" class="bg-rose-950 hover:bg-rose-900 text-rose-300 font-bold py-1.5 rounded-xl text-xs transition">
+            মুছে ফেলুন
+          </button>
+        </div>
+      `).join('');
+    }
+    function closeMyAdsModal() { document.getElementById('myAdsModal').classList.add('hidden'); }
+
+    function deleteAd(id) {
+      mockListings = mockListings.filter(x => x.id !== id);
+      openMyAds();
+      loadListings();
+    }
+
+    function escapeHTML(str = '') {
+      return String(str).replace(/[&<>"']/g, c => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      }[c]));
+    }
+  </script>
+</body>
+</html>
+```
